@@ -1,0 +1,1702 @@
+RMI byte 1 Mã hóa XOR với khóa "PTIT"
+import java.rmi.registry.*;
+import java.util.*;
+import RMI.ByteService;
+
+public class BaiLam {
+    public static void main(String[] args) throws Exception {
+        Registry rg = LocateRegistry.getRegistry("203.162.10.109", 1099);
+        ByteService sv = (ByteService) rg.lookup("RMIByteService");
+        String studentCode = "B23DCCN475", qCode = "eDeIq4xp";
+        byte[] a = sv.requestData(studentCode, qCode);
+        
+        // --- ĐOẠN CODE XỬ LÝ CỦA TỪNG CÂU Ở DƯỚI ĐÂY ---
+	byte[] key = "PTIT".getBytes();
+	byte[] res = new byte[a.length];
+	for (int i = 0; i < a.length; i++) {
+    		res[i] = (byte) (a[i] ^ key[i % key.length]);
+	}
+        
+        sv.submitData(studentCode, qCode, res);
+    }
+}
+RMI byte 2: Mã hóa Caesar theo độ dài mảng
+import java.rmi.registry.*;
+import java.util.*;
+import RMI.ByteService;
+
+public class BaiLam {
+    public static void main(String[] args) throws Exception {
+        Registry rg = LocateRegistry.getRegistry("203.162.10.109", 1099);
+        ByteService sv = (ByteService) rg.lookup("RMIByteService");
+        String studentCode = "B23DCCN475", qCode = "eDeIq4xp";
+        byte[] a = sv.requestData(studentCode, qCode);
+        
+        // --- ĐOẠN CODE XỬ LÝ CỦA TỪNG CÂU Ở DƯỚI ĐÂY ---
+	byte[] res = new byte[a.length];
+	int shift = a.length;
+	for (int i = 0; i < a.length; i++) {
+    		res[i] = (byte) (a[i] + shift);
+	}
+        
+        sv.submitData(studentCode, qCode, res);
+    }
+}
+
+RMI byte 3: Nén dữ liệu Run-Length Encoding (RLE)
+import java.rmi.registry.*;
+import java.util.*;
+import RMI.ByteService;
+
+public class BaiLam {
+    public static void main(String[] args) throws Exception {
+        Registry rg = LocateRegistry.getRegistry("203.162.10.109", 1099);
+        ByteService sv = (ByteService) rg.lookup("RMIByteService");
+        String studentCode = "B23DCCN475", qCode = "eDeIq4xp";
+        byte[] a = sv.requestData(studentCode, qCode);
+        
+        // --- ĐOẠN CODE XỬ LÝ CỦA TỪNG CÂU Ở DƯỚI ĐÂY ---
+	List<Byte> list = new ArrayList<>();
+	for (int i = 0; i < a.length; i++) {
+    		byte count = 1;
+    		while (i + 1 < a.length && a[i] == a[i + 1]) {
+        		count++;
+        		i++;
+    		}
+    		list.add(a[i]);
+    		list.add(count);
+	}
+	byte[] res = new byte[list.size()];
+	for (int i = 0; i < list.size(); i++) res[i] = list.get(i);
+        
+        sv.submitData(studentCode, qCode, res);
+    }
+}
+
+RMI byte 4: Giải mã Base64
+import java.rmi.registry.*;
+import java.util.*;
+import RMI.ByteService;
+
+public class BaiLam {
+    public static void main(String[] args) throws Exception {
+        Registry rg = LocateRegistry.getRegistry("203.162.10.109", 1099);
+        ByteService sv = (ByteService) rg.lookup("RMIByteService");
+        String studentCode = "B23DCCN475", qCode = "eDeIq4xp";
+        byte[] a = sv.requestData(studentCode, qCode);
+        
+        // --- ĐOẠN CODE XỬ LÝ CỦA TỪNG CÂU Ở DƯỚI ĐÂY ---
+	byte[] res = Base64.getDecoder().decode(a);
+        
+        sv.submitData(studentCode, qCode, res);
+    }
+}
+
+RMI byte 5: Chuyển mảng byte sang chuỗi Hex (dạng byte[])
+import java.rmi.registry.*;
+import java.util.*;
+import RMI.ByteService;
+
+public class BaiLam {
+    public static void main(String[] args) throws Exception {
+        Registry rg = LocateRegistry.getRegistry("203.162.10.109", 1099);
+        ByteService sv = (ByteService) rg.lookup("RMIByteService");
+        String studentCode = "B23DCCN475", qCode = "eDeIq4xp";
+        byte[] a = sv.requestData(studentCode, qCode);
+        
+        // --- ĐOẠN CODE XỬ LÝ CỦA TỪNG CÂU Ở DƯỚI ĐÂY ---
+	StringBuilder sb = new StringBuilder();
+	for (byte b : a) {
+    		sb.append(String.format("%02x", b & 0xFF));
+	}
+	byte[] res = sb.toString().getBytes();
+        
+        sv.submitData(studentCode, qCode, res);
+    }
+}
+
+RMI byte 6: Chuyển mảng byte sang chuỗi Bát phân - Octal (dạng byte[])
+import java.rmi.registry.*;
+import java.util.*;
+import RMI.ByteService;
+
+public class BaiLam {
+    public static void main(String[] args) throws Exception {
+        Registry rg = LocateRegistry.getRegistry("203.162.10.109", 1099);
+        ByteService sv = (ByteService) rg.lookup("RMIByteService");
+        String studentCode = "B23DCCN475", qCode = "eDeIq4xp";
+        byte[] a = sv.requestData(studentCode, qCode);
+        
+        // --- ĐOẠN CODE XỬ LÝ CỦA TỪNG CÂU Ở DƯỚI ĐÂY ---
+	StringBuilder sb = new StringBuilder();
+	for (byte b : a) {
+    		sb.append(String.format("%03o", b & 0xFF));
+	}
+	byte[] res = sb.toString().getBytes();
+        
+        sv.submitData(studentCode, qCode, res);
+    }
+}
+
+RMI byte 7: Tìm phần tử lớn thứ K (K nằm ở cuối mảng)
+import java.rmi.registry.*;
+import java.util.*;
+import RMI.ByteService;
+
+public class BaiLam {
+    public static void main(String[] args) throws Exception {
+        Registry rg = LocateRegistry.getRegistry("203.162.10.109", 1099);
+        ByteService sv = (ByteService) rg.lookup("RMIByteService");
+        String studentCode = "B23DCCN475", qCode = "eDeIq4xp";
+        byte[] a = sv.requestData(studentCode, qCode);
+        
+        // --- ĐOẠN CODE XỬ LÝ CỦA TỪNG CÂU Ở DƯỚI ĐÂY ---
+	int k = a[a.length - 1];
+	Byte[] arr = new Byte[a.length - 1];
+	for (int i = 0; i < a.length - 1; i++) arr[i] = a[i];
+	Arrays.sort(arr, Collections.reverseOrder());
+
+// Tìm vị trí gốc (1-based) hoặc gửi {giá trị, k} theo yêu cầu đề:
+	byte val = arr[k - 1];
+	byte[] res = new byte[]{val, (byte) k};
+        
+        sv.submitData(studentCode, qCode, res);
+    }
+}
+
+RMI byte 8 Phân chia mảng Chẵn đứng trước, Lẻ đứng sau (giữ nguyên thứ tự)
+import java.rmi.registry.*;
+import java.util.*;
+import RMI.ByteService;
+
+public class BaiLam {
+    public static void main(String[] args) throws Exception {
+        Registry rg = LocateRegistry.getRegistry("203.162.10.109", 1099);
+        ByteService sv = (ByteService) rg.lookup("RMIByteService");
+        String studentCode = "B23DCCN475", qCode = "eDeIq4xp";
+        byte[] a = sv.requestData(studentCode, qCode);
+        
+        // --- ĐOẠN CODE XỬ LÝ CỦA TỪNG CÂU Ở DƯỚI ĐÂY ---
+	byte[] res = new byte[a.length];
+	int idx = 0;
+	for (byte b : a) if (b % 2 == 0) res[idx++] = b;
+	for (byte b : a) if (b % 2 != 0) res[idx++] = b;
+        
+        sv.submitData(studentCode, qCode, res);
+    }
+}
+
+RMI byte 9: Phần tử xuất hiện ít nhất và số lần xuất hiện
+import java.rmi.registry.*;
+import java.util.*;
+import RMI.ByteService;
+
+public class BaiLam {
+    public static void main(String[] args) throws Exception {
+        Registry rg = LocateRegistry.getRegistry("203.162.10.109", 1099);
+        ByteService sv = (ByteService) rg.lookup("RMIByteService");
+        String studentCode = "B23DCCN475", qCode = "eDeIq4xp";
+        byte[] a = sv.requestData(studentCode, qCode);
+        
+        // --- ĐOẠN CODE XỬ LÝ CỦA TỪNG CÂU Ở DƯỚI ĐÂY ---
+	Map<Byte, Integer> map = new LinkedHashMap<>();
+	for (byte b : a) map.put(b, map.getOrDefault(b, 0) + 1);
+	byte minVal = a[0];
+	int minCount = Integer.MAX_VALUE;
+	for (Map.Entry<Byte, Integer> e : map.entrySet()) {
+    		if (e.getValue() < minCount) {
+        		minCount = e.getValue();
+        		minVal = e.getKey();
+    		}
+	}
+	byte[] res = new byte[]{minVal, (byte) minCount};
+        
+        sv.submitData(studentCode, qCode, res);
+    }
+}
+
+RMI byte 10: Phần tử xuất hiện nhiều nhất và tần suất
+import java.rmi.registry.*;
+import java.util.*;
+import RMI.ByteService;
+
+public class BaiLam {
+    public static void main(String[] args) throws Exception {
+        Registry rg = LocateRegistry.getRegistry("203.162.10.109", 1099);
+        ByteService sv = (ByteService) rg.lookup("RMIByteService");
+        String studentCode = "B23DCCN475", qCode = "eDeIq4xp";
+        byte[] a = sv.requestData(studentCode, qCode);
+        
+        // --- ĐOẠN CODE XỬ LÝ CỦA TỪNG CÂU Ở DƯỚI ĐÂY ---
+	Map<Byte, Integer> map = new LinkedHashMap<>();
+	for (byte b : a) map.put(b, map.getOrDefault(b, 0) + 1);
+	byte maxVal = a[0];
+	int maxCount = -1;
+	for (Map.Entry<Byte, Integer> e : map.entrySet()) {
+    		if (e.getValue() > maxCount) {
+        		maxCount = e.getValue();
+        		maxVal = e.getKey();
+    		}
+	}
+	byte[] res = new byte[]{maxVal, (byte) maxCount};
+        
+        sv.submitData(studentCode, qCode, res);
+    }
+}
+
+RMI data 1 Tìm các số nguyên tố từ 1 đến N
+import java.rmi.registry.*;
+import java.util.*;
+import RMI.DataService;
+
+public class BaiLam {
+    public static void main(String[] args) throws Exception {
+        Registry rg = LocateRegistry.getRegistry("203.162.10.109", 1099);
+        DataService sv = (DataService) rg.lookup("RMIDataService");
+        String studentCode = "B23DCCN475", qCode = "eDeIq4xp";
+        Object obj = sv.requestData(studentCode, qCode);
+        
+        // --- ĐOẠN CODE XỬ LÝ CỦA TỪNG CÂU Ở DƯỚI ĐÂY ---
+	int n = (Integer) obj;
+	List<Integer> res = new ArrayList<>();
+	for (int i = 2; i <= n; i++) {
+    		boolean isPrime = true;
+    		for (int j = 2; j * j <= i; j++) {
+        		if (i % j == 0) { isPrime = false; break; }
+    		}
+    	if (isPrime) res.add(i);
+	}
+        
+        sv.submitData(studentCode, qCode, res);
+    }
+}
+
+
+RMI data 2: Tìm phần tử lớn thứ K từ chuỗi "mảng; K"
+import java.rmi.registry.*;
+import java.util.*;
+import RMI.DataService;
+
+public class BaiLam {
+    public static void main(String[] args) throws Exception {
+        Registry rg = LocateRegistry.getRegistry("203.162.10.109", 1099);
+        DataService sv = (DataService) rg.lookup("RMIDataService");
+        String studentCode = "B23DCCN475", qCode = "eDeIq4xp";
+        Object obj = sv.requestData(studentCode, qCode);
+ 
+        // --- ĐOẠN CODE XỬ LÝ CỦA TỪNG CÂU Ở DƯỚI ĐÂY ---
+	String s = (String) obj;
+	String[] parts = s.split(";");
+	int k = Integer.parseInt(parts[1].trim());
+	String[] nums = parts[0].trim().split(",\\s*");
+	List<Integer> list = new ArrayList<>();
+	for (String x : nums) list.add(Integer.parseInt(x.trim()));
+	Collections.sort(list, Collections.reverseOrder());
+	Integer res = list.get(k - 1); 
+        sv.submitData(studentCode, qCode, res);
+    }
+}
+
+RMI data 3: Phân rã N thành thừa số nguyên tố
+import java.rmi.registry.*;
+import java.util.*;
+import RMI.DataService;
+
+public class BaiLam {
+    public static void main(String[] args) throws Exception {
+        Registry rg = LocateRegistry.getRegistry("203.162.10.109", 1099);
+        DataService sv = (DataService) rg.lookup("RMIDataService");
+        String studentCode = "B23DCCN475", qCode = "eDeIq4xp";
+        Object obj = sv.requestData(studentCode, qCode);
+ 
+        // --- ĐOẠN CODE XỬ LÝ CỦA TỪNG CÂU Ở DƯỚI ĐÂY ---
+	int n = (Integer) obj;
+	List<Integer> res = new ArrayList<>();
+	for (int i = 2; i * i <= n; i++) {
+    		while (n % i == 0) {
+        		res.add(i);
+        		n /= i;
+    		}
+	}
+	if (n > 1) res.add(n);
+        sv.submitData(studentCode, qCode, res);
+    }
+}
+
+RMI data 4: Sinh tất cả các tổ hợp chập K từ chuỗi "mảng; K"
+import java.rmi.registry.*;
+import java.util.*;
+import RMI.DataService;
+
+public class BaiLam {
+    public static void main(String[] args) throws Exception {
+        Registry rg = LocateRegistry.getRegistry("203.162.10.109", 1099);
+        DataService sv = (DataService) rg.lookup("RMIDataService");
+        String studentCode = "B23DCCN475", qCode = "eDeIq4xp";
+        Object obj = sv.requestData(studentCode, qCode);
+ 
+        // --- ĐOẠN CODE XỬ LÝ CỦA TỪNG CÂU Ở DƯỚI ĐÂY ---
+	String s = (String) obj;
+	String[] parts = s.split(";");
+	int k = Integer.parseInt(parts[1].trim());
+	String[] nums = parts[0].replaceAll("[\\[\\]]", "").trim().split(",\\s*");
+	int[] arr = new int[nums.length];
+	for (int i = 0; i < nums.length; i++) arr[i] = Integer.parseInt(nums[i]);
+
+	List<List<Integer>> comps = new ArrayList<>();
+---------------------
+// Hàm backtrack(arr, k, 0, new ArrayList<>(), comps)
+// Viết hàm phụ bên ngoài main:
+/*
+static void backtrack(int[] arr, int k, int start, List<Integer> curr, List<List<Integer>> comps) {
+    if (curr.size() == k) { comps.add(new ArrayList<>(curr)); return; }
+    for (int i = start; i < arr.length; i++) {
+        curr.add(arr[i]);
+        backtrack(arr, k, i + 1, curr, comps);
+        curr.remove(curr.size() - 1);
+    }
+}
+*/
+----------------------
+	String res = comps.toString();
+        sv.submitData(studentCode, qCode, res);
+    }
+}
+
+RMI data 5: Tính phương sai và độ lệch chuẩn
+import java.rmi.registry.*;
+import java.util.*;
+import RMI.DataService;
+
+public class BaiLam {
+    public static void main(String[] args) throws Exception {
+        Registry rg = LocateRegistry.getRegistry("203.162.10.109", 1099);
+        DataService sv = (DataService) rg.lookup("RMIDataService");
+        String studentCode = "B23DCCN475", qCode = "eDeIq4xp";
+        Object obj = sv.requestData(studentCode, qCode);
+ 
+        // --- ĐOẠN CODE XỬ LÝ CỦA TỪNG CÂU Ở DƯỚI ĐÂY ---
+	String s = (String) obj;
+	String[] parts = s.split(",\\s*");
+	double[] a = new double[parts.length];
+	double sum = 0;
+	for (int i = 0; i < parts.length; i++) {
+    		a[i] = Double.parseDouble(parts[i]);
+    		sum += a[i];
+	}
+	double mean = sum / a.length;
+	double sqDiff = 0;
+	for (double x : a) sqDiff += (x - mean) * (x - mean);
+	double variance = sqDiff / a.length;
+	double stdDev = Math.sqrt(variance);
+	String res = String.format(Locale.US, "%.2f : %.2f", variance, stdDev);
+        sv.submitData(studentCode, qCode, res);
+    }
+}
+
+RMI data 6: Danh sách số chính phương nhỏ hơn N
+import java.rmi.registry.*;
+import java.util.*;
+import RMI.DataService;
+
+public class BaiLam {
+    public static void main(String[] args) throws Exception {
+        Registry rg = LocateRegistry.getRegistry("203.162.10.109", 1099);
+        DataService sv = (DataService) rg.lookup("RMIDataService");
+        String studentCode = "B23DCCN475", qCode = "eDeIq4xp";
+        Object obj = sv.requestData(studentCode, qCode);
+ 
+        // --- ĐOẠN CODE XỬ LÝ CỦA TỪNG CÂU Ở DƯỚI ĐÂY ---
+	int n = (Integer) obj;
+	List<Integer> res = new ArrayList<>();
+	for (int i = 1; i * i < n; i++) {
+    		res.add(i * i);
+	}
+        sv.submitData(studentCode, qCode, res);
+    }
+}
+
+RMI data 7 Số đối xứng (Palindrome) trong khoảng [N, K)
+import java.rmi.registry.*;
+import java.util.*;
+import RMI.DataService;
+
+public class BaiLam {
+    public static void main(String[] args) throws Exception {
+        Registry rg = LocateRegistry.getRegistry("203.162.10.109", 1099);
+        DataService sv = (DataService) rg.lookup("RMIDataService");
+        String studentCode = "B23DCCN475", qCode = "eDeIq4xp";
+        Object obj = sv.requestData(studentCode, qCode);
+ 
+        // --- ĐOẠN CODE XỬ LÝ CỦA TỪNG CÂU Ở DƯỚI ĐÂY ---
+	String s = obj.toString(); // Hoặc tách từ chuỗi "N; K" tùy định dạng server trả về
+	String[] parts = s.split("[,;\\s]+");
+	int n = Integer.parseInt(parts[0]);
+	int k = Integer.parseInt(parts[1]);
+	List<Integer> res = new ArrayList<>();
+	for (int i = n; i < k; i++) {
+    		String str = String.valueOf(i);
+    		if (str.equals(new StringBuilder(str).reverse().toString())) {
+        	res.add(i);
+    		}
+	}
+        sv.submitData(studentCode, qCode, res);
+    }
+}
+
+RMI data 8 Bộ ba số Pythagore
+import java.rmi.registry.*;
+import java.util.*;
+import RMI.DataService;
+
+public class BaiLam {
+    public static void main(String[] args) throws Exception {
+        Registry rg = LocateRegistry.getRegistry("203.162.10.109", 1099);
+        DataService sv = (DataService) rg.lookup("RMIDataService");
+        String studentCode = "B23DCCN475", qCode = "eDeIq4xp";
+        Object obj = sv.requestData(studentCode, qCode);
+ 
+        // --- ĐOẠN CODE XỬ LÝ CỦA TỪNG CÂU Ở DƯỚI ĐÂY ---
+	int n = (Integer) obj;
+	List<List<Integer>> res = new ArrayList<>();
+	for (int a = 1; a <= n; a++) {
+    		for (int b = a + 1; b <= n; b++) {
+        		for (int c = b + 1; c <= n; c++) {
+            			if (a * a + b * b == c * c) {
+                			res.add(Arrays.asList(a, b, c));
+            			}
+        		}
+    		}
+	}
+        sv.submitData(studentCode, qCode, res);
+    }
+}
+
+RMI data 9: Đổi tiền tối thiểu với mệnh giá [1, 2, 5, 10]
+import java.rmi.registry.*;
+import java.util.*;
+import RMI.DataService;
+
+public class BaiLam {
+    public static void main(String[] args) throws Exception {
+        Registry rg = LocateRegistry.getRegistry("203.162.10.109", 1099);
+        DataService sv = (DataService) rg.lookup("RMIDataService");
+        String studentCode = "B23DCCN475", qCode = "eDeIq4xp";
+        Object obj = sv.requestData(studentCode, qCode);
+ 
+        // --- ĐOẠN CODE XỬ LÝ CỦA TỪNG CÂU Ở DƯỚI ĐÂY ---
+	int amount = (Integer) obj;
+	int[] coins = {10, 5, 2, 1};
+	List<String> used = new ArrayList<>();
+	int count = 0;
+	for (int c : coins) {
+    		while (amount >= c) {
+        		amount -= c;
+        		count++;
+        	used.add(String.valueOf(c));
+    		}
+	}
+	String res = count + "; " + String.join(",", used);
+        sv.submitData(studentCode, qCode, res);
+    }
+}
+
+RMI data 10 Hoán vị kế tiếp (Next Permutation)
+import java.rmi.registry.*;
+import java.util.*;
+import RMI.DataService;
+
+public class BaiLam {
+    public static void main(String[] args) throws Exception {
+        Registry rg = LocateRegistry.getRegistry("203.162.10.109", 1099);
+        DataService sv = (DataService) rg.lookup("RMIDataService");
+        String studentCode = "B23DCCN475", qCode = "eDeIq4xp";
+        Object obj = sv.requestData(studentCode, qCode);
+ 
+        // --- ĐOẠN CODE XỬ LÝ CỦA TỪNG CÂU Ở DƯỚI ĐÂY ---
+	String s = (String) obj;
+	String[] parts = s.split(",\\s*");
+	int[] a = new int[parts.length];
+	for (int i = 0; i < parts.length; i++) a[i] = Integer.parseInt(parts[i].trim());
+
+	int i = a.length - 2;
+	while (i >= 0 && a[i] >= a[i + 1]) i--;
+	if (i >= 0) {
+    		int j = a.length - 1;
+    		while (a[j] <= a[i]) j--;
+    		int tmp = a[i]; a[i] = a[j]; a[j] = tmp;
+	}
+	for (int l = i + 1, r = a.length - 1; l < r; l++, r--) {
+    		int tmp = a[l]; a[l] = a[r]; a[r] = tmp;
+	}
+	List<String> out = new ArrayList<>();
+	for (int x : a) out.add(String.valueOf(x));
+	String res = String.join(", ", out);
+        sv.submitData(studentCode, qCode, res);
+    }
+}
+
+RMI char 1 Giải mã Caesar
+import java.rmi.registry.*;
+import java.util.*;
+import java.net.URLEncoder;
+import RMI.CharacterService;
+
+public class BaiLam {
+    public static void main(String[] args) throws Exception {
+        Registry rg = LocateRegistry.getRegistry("203.162.10.109", 1099);
+        CharacterService sv = (CharacterService) rg.lookup("RMICharacterService");
+        String studentCode = "B23DCCN475", qCode = "eDeIq4xp";
+        String s = sv.requestCharacter(studentCode, qCode);
+        
+        // --- ĐOẠN CODE XỬ LÝ CỦA TỪNG CÂU Ở DƯỚI ĐÂY ---
+	int shift = s.length() % 7;
+	StringBuilder sb = new StringBuilder();
+	for (char c : s.toCharArray()) {
+    	if (Character.isUpperCase(c)) {
+        	sb.append((char) ((c - 'A' - shift + 26) % 26 + 'A'));
+    	} else if (Character.isLowerCase(c)) {
+        	sb.append((char) ((c - 'a' - shift + 26) % 26 + 'a'));
+    	} else {
+        	sb.append(c);
+    	}
+	}
+	String res = sb.toString();
+        
+        sv.submitCharacter(studentCode, qCode, res);
+    }
+}
+
+RMI char 2 Mã hóa Vigenère
+import java.rmi.registry.*;
+import java.util.*;
+import java.net.URLEncoder;
+import RMI.CharacterService;
+
+public class BaiLam {
+    public static void main(String[] args) throws Exception {
+        Registry rg = LocateRegistry.getRegistry("203.162.10.109", 1099);
+        CharacterService sv = (CharacterService) rg.lookup("RMICharacterService");
+        String studentCode = "B23DCCN475", qCode = "eDeIq4xp";
+        String s = sv.requestCharacter(studentCode, qCode);
+        
+        // --- ĐOẠN CODE XỬ LÝ CỦA TỪNG CÂU Ở DƯỚI ĐÂY ---
+	String[] parts = s.split(";");
+	String key = parts[0], text = parts[1];
+	StringBuilder sb = new StringBuilder();
+	for (int i = 0; i < text.length(); i++) {
+    		char c = text.charAt(i);
+    		char k = key.charAt(i % key.length());
+    		if (Character.isUpperCase(c)) {
+        		int shift = Character.toUpperCase(k) - 'A';
+        		sb.append((char) ((c - 'A' + shift) % 26 + 'A'));
+    		} else if (Character.isLowerCase(c)) {
+        		int shift = Character.toLowerCase(k) - 'a';
+        		sb.append((char) ((c - 'a' + shift) % 26 + 'a'));
+    		} else {
+        		sb.append(c);
+    		}
+	}
+	String res = sb.toString();
+	        
+        sv.submitCharacter(studentCode, qCode, res);
+    }
+}
+
+RMi char 3 Mã hóa XOR chuỗi
+import java.rmi.registry.*;
+import java.util.*;
+import java.net.URLEncoder;
+import RMI.CharacterService;
+
+public class BaiLam {
+    public static void main(String[] args) throws Exception {
+        Registry rg = LocateRegistry.getRegistry("203.162.10.109", 1099);
+        CharacterService sv = (CharacterService) rg.lookup("RMICharacterService");
+        String studentCode = "B23DCCN475", qCode = "eDeIq4xp";
+        String s = sv.requestCharacter(studentCode, qCode);
+        
+        // --- ĐOẠN CODE XỬ LÝ CỦA TỪNG CÂU Ở DƯỚI ĐÂY ---
+	String[] parts = s.split(";");
+	String key = parts[0], text = parts[1];
+	StringBuilder sb = new StringBuilder();
+	for (int i = 0; i < text.length(); i++) {
+    		sb.append((char) (text.charAt(i) ^ key.charAt(i % key.length())));
+	}
+	String res = sb.toString();
+        
+        sv.submitCharacter(studentCode, qCode, res);
+    }
+}
+
+RMI char 4 Mã hóa Base64   
+import java.rmi.registry.*;
+import java.util.*;
+import java.net.URLEncoder;
+import RMI.CharacterService;
+
+public class BaiLam {
+    public static void main(String[] args) throws Exception {
+        Registry rg = LocateRegistry.getRegistry("203.162.10.109", 1099);
+        CharacterService sv = (CharacterService) rg.lookup("RMICharacterService");
+        String studentCode = "B23DCCN475", qCode = "eDeIq4xp";
+        String s = sv.requestCharacter(studentCode, qCode);
+        
+        // --- ĐOẠN CODE XỬ LÝ CỦA TỪNG CÂU Ở DƯỚI ĐÂY ---
+        String res = Base64.getEncoder().encodeToString(s.getBytes());
+        sv.submitCharacter(studentCode, qCode, res);
+    }
+}
+
+RMi char 5 Mã hóa URL (URL Encoding)
+import java.rmi.registry.*;
+import java.util.*;
+import java.net.URLEncoder;
+import RMI.CharacterService;
+
+public class BaiLam {
+    public static void main(String[] args) throws Exception {
+        Registry rg = LocateRegistry.getRegistry("203.162.10.109", 1099);
+        CharacterService sv = (CharacterService) rg.lookup("RMICharacterService");
+        String studentCode = "B23DCCN475", qCode = "eDeIq4xp";
+        String s = sv.requestCharacter(studentCode, qCode);
+        
+        // --- ĐOẠN CODE XỬ LÝ CỦA TỪNG CÂU Ở DƯỚI ĐÂY ---
+        String res = URLEncoder.encode(s, "UTF-8").replace("+", "%20");
+        sv.submitCharacter(studentCode, qCode, res);
+    }
+}
+
+RMI char 6 Chuyển Số La Mã sang Thập phân
+import java.rmi.registry.*;
+import java.util.*;
+import java.net.URLEncoder;
+import RMI.CharacterService;
+
+public class BaiLam {
+    public static void main(String[] args) throws Exception {
+        Registry rg = LocateRegistry.getRegistry("203.162.10.109", 1099);
+        CharacterService sv = (CharacterService) rg.lookup("RMICharacterService");
+        String studentCode = "B23DCCN475", qCode = "eDeIq4xp";
+        String s = sv.requestCharacter(studentCode, qCode);
+        
+        // --- ĐOẠN CODE XỬ LÝ CỦA TỪNG CÂU Ở DƯỚI ĐÂY ---
+        Map<Character, Integer> map = new HashMap<>();
+	map.put('I', 1); map.put('V', 5); map.put('X', 10);
+	map.put('L', 50); map.put('C', 100); map.put('D', 500); map.put('M', 1000);
+	int sum = 0;
+	for (int i = 0; i < s.length(); i++) {
+    		int val = map.get(s.charAt(i));
+    		if (i + 1 < s.length() && val < map.get(s.charAt(i + 1))) sum -= val;
+    		else sum += val;
+	}
+	String res = String.valueOf(sum);
+        sv.submitCharacter(studentCode, qCode, res);
+    }
+}
+
+RMI char 7 Chuyển Số Thập phân sang Số La Mã   
+import java.rmi.registry.*;
+import java.util.*;
+import java.net.URLEncoder;
+import RMI.CharacterService;
+
+public class BaiLam {
+    public static void main(String[] args) throws Exception {
+        Registry rg = LocateRegistry.getRegistry("203.162.10.109", 1099);
+        CharacterService sv = (CharacterService) rg.lookup("RMICharacterService");
+        String studentCode = "B23DCCN475", qCode = "eDeIq4xp";
+        String s = sv.requestCharacter(studentCode, qCode);
+        
+        // --- ĐOẠN CODE XỬ LÝ CỦA TỪNG CÂU Ở DƯỚI ĐÂY ---
+        int num = Integer.parseInt(s.trim());
+	int[] vals = {1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1};
+	String[] syms = {"M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"};
+	StringBuilder sb = new StringBuilder();
+	for (int i = 0; i < vals.length; i++) {
+    		while (num >= vals[i]) {
+        		num -= vals[i];
+        		sb.append(syms[i]);
+    		}
+	}
+	String res = sb.toString();
+        sv.submitCharacter(studentCode, qCode, res);
+    }
+}
+
+RMI char 8 Đếm tần số ký tự định dạng JSON
+import java.rmi.registry.*;
+import java.util.*;
+import java.net.URLEncoder;
+import RMI.CharacterService;
+
+public class BaiLam {
+    public static void main(String[] args) throws Exception {
+        Registry rg = LocateRegistry.getRegistry("203.162.10.109", 1099);
+        CharacterService sv = (CharacterService) rg.lookup("RMICharacterService");
+        String studentCode = "B23DCCN475", qCode = "eDeIq4xp";
+        String s = sv.requestCharacter(studentCode, qCode);
+        
+        // --- ĐOẠN CODE XỬ LÝ CỦA TỪNG CÂU Ở DƯỚI ĐÂY ---
+        Map<Character, Integer> map = new LinkedHashMap<>();
+	for (char c : s.toCharArray()) map.put(c, map.getOrDefault(c, 0) + 1);
+	List<String> items = new ArrayList<>();
+	for (Map.Entry<Character, Integer> e : map.entrySet()) {
+    		items.add("\"" + e.getKey() + "\": " + e.getValue());
+	}
+	String res = "{" + String.join(", ", items) + "}";
+        sv.submitCharacter(studentCode, qCode, res);
+    }
+}
+
+RMI char 9 Trích xuất cặp key: value chẵn/lẻ từ chuỗi JSON
+import java.rmi.registry.*;
+import java.util.*;
+import java.net.URLEncoder;
+import RMI.CharacterService;
+
+public class BaiLam {
+    public static void main(String[] args) throws Exception {
+        Registry rg = LocateRegistry.getRegistry("203.162.10.109", 1099);
+        CharacterService sv = (CharacterService) rg.lookup("RMICharacterService");
+        String studentCode = "B23DCCN475", qCode = "eDeIq4xp";
+        String s = sv.requestCharacter(studentCode, qCode);
+        
+        // --- ĐOẠN CODE XỬ LÝ CỦA TỪNG CÂU Ở DƯỚI ĐÂY ---
+        s = s.trim().replaceAll("^\\{|\\}$", "");
+	String[] pairs = s.split(",\\s*");
+	List<String> even = new ArrayList<>(), odd = new ArrayList<>();
+	for (int i = 0; i < pairs.length; i++) {
+    		String clean = pairs[i].replace("\"", "").trim();
+    		if (i % 2 == 0) even.add(clean);
+    		else odd.add(clean);
+	}
+	String res = String.join(", ", even) + "; " + String.join(", ", odd);
+        sv.submitCharacter(studentCode, qCode, res);
+    }
+}
+
+RMI char 10 Đếm tần số ký tự định dạng <Ký tự><Số lần>
+import java.rmi.registry.*;
+import java.util.*;
+import java.net.URLEncoder;
+import RMI.CharacterService;
+
+public class BaiLam {
+    public static void main(String[] args) throws Exception {
+        Registry rg = LocateRegistry.getRegistry("203.162.10.109", 1099);
+        CharacterService sv = (CharacterService) rg.lookup("RMICharacterService");
+        String studentCode = "B23DCCN475", qCode = "eDeIq4xp";
+        String s = sv.requestCharacter(studentCode, qCode);
+        
+        // --- ĐOẠN CODE XỬ LÝ CỦA TỪNG CÂU Ở DƯỚI ĐÂY ---
+        Map<Character, Integer> map = new LinkedHashMap<>();
+	for (char c : s.toCharArray()) map.put(c, map.getOrDefault(c, 0) + 1);
+	StringBuilder sb = new StringBuilder();
+	for (Map.Entry<Character, Integer> e : map.entrySet()) {
+    		sb.append(e.getKey()).append(e.getValue());
+	}
+	String res = sb.toString();
+        sv.submitCharacter(studentCode, qCode, res);
+    }
+}
+
+RMI object 1 Tính finalSalary cho Employee
+import java.rmi.registry.*;
+import java.util.*;
+import RMI.*;
+
+public class BaiLam {
+    public static void main(String[] args) throws Exception {
+        Registry rg = LocateRegistry.getRegistry("203.162.10.109", 1099);
+        ObjectService sv = (ObjectService) rg.lookup("RMIObjectService");
+        String studentCode = "B23DCCN475", qCode = "eDeIq4xp";
+        
+        // --- ĐOẠN CODE XỬ LÝ CỦA TỪNG CÂU Ở DƯỚI ĐÂY ---
+	Employee emp = (Employee) sv.requestObject(studentCode, qCode);
+	int exp = emp.getExperienceYears();
+	int sumDigits = 0, temp = exp, countDiv = 0;
+	while (temp > 0) { sumDigits += temp % 10; temp /= 10; }
+	for (int i = 1; i <= exp; i++) if (exp % i == 0) countDiv++;
+
+	double factor = (exp + sumDigits + countDiv) / 100.0;
+	emp.setFinalSalary(emp.getBaseSalary() * (1 + factor));
+	sv.submitObject(studentCode, qCode, emp);
+    }
+}
+
+RMI object 2 Tạo mã code cho Book
+import java.rmi.registry.*;
+import java.util.*;
+import RMI.*;
+
+public class BaiLam {
+    public static void main(String[] args) throws Exception {
+        Registry rg = LocateRegistry.getRegistry("203.162.10.109", 1099);
+        ObjectService sv = (ObjectService) rg.lookup("RMIObjectService");
+        String studentCode = "B23DCCN475", qCode = "eDeIq4xp";
+        
+        // --- ĐOẠN CODE XỬ LÝ CỦA TỪNG CÂU Ở DƯỚI ĐÂY ---
+	Book b = (Book) sv.requestObject(studentCode, qCode);
+	String[] authWords = b.getAuthor().trim().split("\\s+");
+	String initials = "" + Character.toUpperCase(authWords[0].charAt(0)) 
+                     + Character.toUpperCase(authWords[authWords.length - 1].charAt(0));
+	String yearPart = String.format("%02d", b.getYearPublished() % 100);
+	int titleLetters = 0;
+	for (char c : b.getTitle().toCharArray()) if (Character.isLetter(c)) titleLetters++;
+	String pagePart = String.format("%03d", b.getPageCount());
+
+	b.setCode(initials + yearPart + titleLetters + pagePart);
+	sv.submitObject(studentCode, qCode, b);
+    }
+}
+
+RMI object 3 Tạo mã code cho BookX
+import java.rmi.registry.*;
+import java.util.*;
+import RMI.*;
+
+public class BaiLam {
+    public static void main(String[] args) throws Exception {
+        Registry rg = LocateRegistry.getRegistry("203.162.10.109", 1099);
+        ObjectService sv = (ObjectService) rg.lookup("RMIObjectService");
+        String studentCode = "B23DCCN475", qCode = "eDeIq4xp";
+        
+        // --- ĐOẠN CODE XỬ LÝ CỦA TỪNG CÂU Ở DƯỚI ĐÂY ---
+	BookX b = (BookX) sv.requestObject(studentCode, qCode);
+	String[] authWords = b.getAuthor().trim().split("\\s+");
+	// Lưu ý: Nếu đề lấy chữ cái đầu của Họ và Tên (VD: Mark Twain -> MT) dùng authWords[authWords.length-1].charAt(0). 
+	// Nếu lấy ký tự đầu và cuối của cả chuỗi author thì dùng auth.charAt(auth.length()-1).
+	String auth = b.getAuthor().trim();
+	String initials = "" + Character.toUpperCase(authWords[0].charAt(0)) 
+                     + Character.toUpperCase(authWords[authWords.length - 1].charAt(0));
+	String yearPart = String.format("%02d", b.getYearPublished() % 100);
+	int genreLetters = 0;
+	for (char c : b.getGenre().toCharArray()) if (Character.isLetter(c)) genreLetters++;
+	int titleMod = b.getTitle().length() % 10;
+
+	b.setCode(initials + yearPart + genreLetters + titleMod);
+	sv.submitObject(studentCode, qCode, b);
+    }
+}
+
+RMI object 4 Chuẩn hóa name và tạo code cho Student
+import java.rmi.registry.*;
+import java.util.*;
+import RMI.*;
+
+public class BaiLam {
+    public static void main(String[] args) throws Exception {
+        Registry rg = LocateRegistry.getRegistry("203.162.10.109", 1099);
+        ObjectService sv = (ObjectService) rg.lookup("RMIObjectService");
+        String studentCode = "B23DCCN475", qCode = "eDeIq4xp";
+        
+        // --- ĐOẠN CODE XỬ LÝ CỦA TỪNG CÂU Ở DƯỚI ĐÂY ---
+	Student st = (Student) sv.requestObject(studentCode, qCode);
+	String[] words = st.getName().trim().split("\\s+");
+	StringBuilder normName = new StringBuilder();
+	StringBuilder initials = new StringBuilder();
+
+	for (int i = 0; i < words.length - 1; i++) {
+    		String w = words[i].substring(0, 1).toUpperCase() + words[i].substring(1).toLowerCase();
+    		normName.append(w).append(" ");
+    		initials.append(w.charAt(0));
+	}
+	String lastName = words[words.length - 1].substring(0, 1).toUpperCase() 
+                + words[words.length - 1].substring(1).toLowerCase();
+	normName.append(lastName);
+
+	String code = "B" + String.format("%02d", st.getEnrollmentYear() % 100) 
+            + words[words.length - 1].toUpperCase() + "_" + initials.toString();
+
+	st.setName(normName.toString());
+	st.setCode(code);
+	sv.submitObject(studentCode, qCode, st);
+    }
+}
+
+RMI object 5 Tạo eventCode cho Event
+import java.rmi.registry.*;
+import java.util.*;
+import RMI.*;
+
+public class BaiLam {
+    public static void main(String[] args) throws Exception {
+        Registry rg = LocateRegistry.getRegistry("203.162.10.109", 1099);
+        ObjectService sv = (ObjectService) rg.lookup("RMIObjectService");
+        String studentCode = "B23DCCN475", qCode = "eDeIq4xp";
+        
+        // --- ĐOẠN CODE XỬ LÝ CỦA TỪNG CÂU Ở DƯỚI ĐÂY ---
+	Event ev = (Event) sv.requestObject(studentCode, qCode);
+	String prefix = ev.getExpectedAttendance() >= 1000 ? "L" : (ev.getExpectedAttendance() >= 500 ? "M" : "S");
+	String name = ev.getEventName().trim();
+	// Ví dụ "Charity Run" -> CR (Chữ cái đầu của từ đầu và từ cuối, hoặc đầu/cuối chuỗi):
+	String[] words = name.split("\\s+");
+	String abbr = "" + Character.toUpperCase(words[0].charAt(0)) + 	Character.toUpperCase(words[words.length - 1].charAt(0));
+	String[] d = ev.getEventDate().split("-"); // yyyy-MM-dd
+	String datePart = d[2] + d[1]; // ddMM
+
+	ev.setEventCode(prefix + abbr + datePart);
+	sv.submitObject(studentCode, qCode, ev);
+    }
+}
+
+RMI object 6 Tạo orderCode cho Order
+import java.rmi.registry.*;
+import java.util.*;
+import RMI.*;
+
+public class BaiLam {
+    public static void main(String[] args) throws Exception {
+        Registry rg = LocateRegistry.getRegistry("203.162.10.109", 1099);
+        ObjectService sv = (ObjectService) rg.lookup("RMIObjectService");
+        String studentCode = "B23DCCN475", qCode = "eDeIq4xp";
+        
+        // --- ĐOẠN CODE XỬ LÝ CỦA TỪNG CÂU Ở DƯỚI ĐÂY ---
+	Order ord = (Order) sv.requestObject(studentCode, qCode);
+	String ship = ord.getShippingType().substring(0, 2).toUpperCase();
+	String cust = ord.getCustomerCode();
+	String custPart = cust.substring(cust.length() - 3);
+	String[] d = ord.getOrderDate().split("-"); // yyyy-MM-dd
+	String datePart = d[2] + d[1]; // ddMM
+
+	ord.setOrderCode(ship + custPart + datePart);
+	sv.submitObject(studentCode, qCode, ord);
+    }
+}
+ 
+RMI object 7 Tạo ticketCode cho Ticket
+import java.rmi.registry.*;
+import java.util.*;
+import RMI.*;
+
+public class BaiLam {
+    public static void main(String[] args) throws Exception {
+        Registry rg = LocateRegistry.getRegistry("203.162.10.109", 1099);
+        ObjectService sv = (ObjectService) rg.lookup("RMIObjectService");
+        String studentCode = "B23DCCN475", qCode = "eDeIq4xp";
+        
+        // --- ĐOẠN CODE XỬ LÝ CỦA TỪNG CÂU Ở DƯỚI ĐÂY ---
+	Ticket tk = (Ticket) sv.requestObject(studentCode, qCode);
+	String name = tk.getEventName().trim();
+	String abbr = "" + Character.toUpperCase(name.charAt(0)) + Character.toUpperCase(name.charAt(name.length() - 1));
+	String saleDate = tk.getSaleDate(); // dd/MM/yyyy
+	String[] d = saleDate.split("/");
+	String datePart = d[1] + d[0]; // MMdd
+
+	boolean[] present = new boolean[10];
+	for (char c : saleDate.toCharArray()) {
+    		if (Character.isDigit(c)) present[c - '0'] = true;
+	}
+	int maxD = -1, minD = 10;
+	for (int i = 0; i <= 9; i++) {
+    		if (!present[i]) {
+        		if (i > maxD) maxD = i;
+        		if (i < minD) minD = i;
+    		}
+	}
+	tk.setTicketCode(abbr + datePart + maxD + minD);
+	sv.submitObject(studentCode, qCode, tk);
+    }
+}
+
+Data WS 1 Tính tổng các phần tử trong danh sách
+import java.util.*;
+import ptit.dblab.judge.network.server.soap.*;
+
+public class BaiLam {
+    public static void main(String[] args) throws Exception {
+        DataService service = new DataService();
+        SoapDataService port = service.getSoapDataServicePort();
+        String studentCode = "B23DCCN475", qCode = "eDeIq4xp";
+        
+        // --- ĐOẠN CODE XỬ LÝ CỦA TỪNG CÂU Ở DƯỚI ĐÂY ---
+	List<Integer> list = port.getData(studentCode, qCode);
+	int sum = 0;
+	for (int x : list) sum += x;
+	port.submitDataInt(studentCode, qCode, sum);
+    }
+}
+
+data WS 2 Tìm phần tử lớn thứ K và nhỏ thứ K (K là phần tử đầu tiên)
+import java.util.*;
+import ptit.dblab.judge.network.server.soap.*;
+
+public class BaiLam {
+    public static void main(String[] args) throws Exception {
+        DataService service = new DataService();
+        SoapDataService port = service.getSoapDataServicePort();
+        String studentCode = "B23DCCN475", qCode = "eDeIq4xp";
+        
+        // --- ĐOẠN CODE XỬ LÝ CỦA TỪNG CÂU Ở DƯỚI ĐÂY ---
+	List<Integer> list = port.getData(studentCode, qCode);
+	int k = list.get(0);
+	List<Integer> sub = new ArrayList<>(list.subList(1, list.size()));
+	Collections.sort(sub);
+	int kthMin = sub.get(k - 1);
+	int kthMax = sub.get(sub.size() - k);
+	port.submitDataIntArray(studentCode, qCode, Arrays.asList(kthMax, kthMin));
+    }
+}
+
+data WS 3 Đếm tần suất xuất hiện của từng phần tử
+import java.util.*;
+import ptit.dblab.judge.network.server.soap.*;
+
+public class BaiLam {
+    public static void main(String[] args) throws Exception {
+        DataService service = new DataService();
+        SoapDataService port = service.getSoapDataServicePort();
+        String studentCode = "B23DCCN475", qCode = "eDeIq4xp";
+        
+        // --- ĐOẠN CODE XỬ LÝ CỦA TỪNG CÂU Ở DƯỚI ĐÂY ---
+	List<Integer> list = port.getData(studentCode, qCode);
+	Map<Integer, Integer> map = new LinkedHashMap<>();
+	for (int x : list) map.put(x, map.getOrDefault(x, 0) + 1);
+
+// Nếu WSDL nhận List<String> dạng " phần_tử, tần_suất " hoặc mảng 2 chiều:
+	List<String> res = new ArrayList<>();
+	for (Map.Entry<Integer, Integer> e : map.entrySet()) {
+    		res.add(e.getKey() + ", " + e.getValue());
+	}
+	port.submitDataStringArray(studentCode, qCode, res);
+    }
+}
+
+data WS 4 Loại bỏ các phần tử trùng lặp (giữ nguyên thứ tự)
+import java.util.*;
+import ptit.dblab.judge.network.server.soap.*;
+
+public class BaiLam {
+    public static void main(String[] args) throws Exception {
+        DataService service = new DataService();
+        SoapDataService port = service.getSoapDataServicePort();
+        String studentCode = "B23DCCN475", qCode = "eDeIq4xp";
+        
+        // --- ĐOẠN CODE XỬ LÝ CỦA TỪNG CÂU Ở DƯỚI ĐÂY ---
+	List<Integer> list = port.getData(studentCode, qCode);
+	List<Integer> res = new ArrayList<>(new LinkedHashSet<>(list));
+	port.submitDataIntArray(studentCode, qCode, res);
+    }
+}
+
+data WS 5 Sắp xếp Chẵn - Lẻ xen kẽ (Chẵn đứng đầu)
+import java.util.*;
+import ptit.dblab.judge.network.server.soap.*;
+
+public class BaiLam {
+    public static void main(String[] args) throws Exception {
+        DataService service = new DataService();
+        SoapDataService port = service.getSoapDataServicePort();
+        String studentCode = "B23DCCN475", qCode = "eDeIq4xp";
+        
+        // --- ĐOẠN CODE XỬ LÝ CỦA TỪNG CÂU Ở DƯỚI ĐÂY ---
+	List<Integer> list = port.getData(studentCode, qCode);
+	List<Integer> even = new ArrayList<>(), odd = new ArrayList<>();
+	for (int x : list) {
+    		if (x % 2 == 0) even.add(x);
+    		else odd.add(x);
+	}
+	List<Integer> res = new ArrayList<>();
+	int i = 0, j = 0;
+	while (i < even.size() && j < odd.size()) {
+    		res.add(even.get(i++));
+    		res.add(odd.get(j++));
+	}
+	while (i < even.size()) res.add(even.get(i++));
+	while (j < odd.size()) res.add(odd.get(j++));
+	port.submitDataIntArray(studentCode, qCode, res);
+    }
+}
+
+data WS 6 Chuyển danh sách số nguyên sang chuỗi nhị phân
+import java.util.*;
+import ptit.dblab.judge.network.server.soap.*;
+
+public class BaiLam {
+    public static void main(String[] args) throws Exception {
+        DataService service = new DataService();
+        SoapDataService port = service.getSoapDataServicePort();
+        String studentCode = "B23DCCN475", qCode = "eDeIq4xp";
+        
+        // --- ĐOẠN CODE XỬ LÝ CỦA TỪNG CÂU Ở DƯỚI ĐÂY ---
+	List<Integer> list = port.getData(studentCode, qCode);
+	List<String> res = new ArrayList<>();
+	for (int x : list) res.add(Integer.toBinaryString(x));
+	port.submitDataStringArray(studentCode, qCode, res);
+    }
+}
+
+data WS 7 Phân tích từng số nguyên thành các thừa số nguyên tố
+import java.util.*;
+import ptit.dblab.judge.network.server.soap.*;
+
+public class BaiLam {
+    public static void main(String[] args) throws Exception {
+        DataService service = new DataService();
+        SoapDataService port = service.getSoapDataServicePort();
+        String studentCode = "B23DCCN475", qCode = "eDeIq4xp";
+        
+        // --- ĐOẠN CODE XỬ LÝ CỦA TỪNG CÂU Ở DƯỚI ĐÂY ---
+	List<Integer> list = port.getData(studentCode, qCode);
+	List<String> res = new ArrayList<>();
+	for (int n : list) {
+    		List<String> factors = new ArrayList<>();
+    		for (int i = 2; i * i <= n; i++) {
+        		while (n % i == 0) {
+            			factors.add(String.valueOf(i));
+            			n /= i;
+        		}
+    		}
+    		if (n > 1) factors.add(String.valueOf(n));
+    		res.add(String.join(", ", factors));
+	}
+	port.submitDataStringArray(studentCode, qCode, res);
+    }
+}
+
+data WS 8  Chuyển đổi sang hệ cơ số 8 (Octal) và hệ cơ số 16 (Hex)
+import java.util.*;
+import ptit.dblab.judge.network.server.soap.*;
+
+public class BaiLam {
+    public static void main(String[] args) throws Exception {
+        DataService service = new DataService();
+        SoapDataService port = service.getSoapDataServicePort();
+        String studentCode = "B23DCCN475", qCode = "eDeIq4xp";
+        
+        // --- ĐOẠN CODE XỬ LÝ CỦA TỪNG CÂU Ở DƯỚI ĐÂY ---
+	List<Integer> list = port.getData(studentCode, qCode);
+	List<String> res = new ArrayList<>();
+	for (int x : list) {
+    		String oct = Integer.toOctalString(x);
+    		String hex = Integer.toHexString(x).toUpperCase();
+    		res.add(oct + "|" + hex); // Hoặc thêm vào mảng 2 chiều tùy kiểu tham số WSDL
+	}
+	port.submitDataStringArray(studentCode, qCode, res);
+    }
+}
+
+data WS 9 Chuyển số thập phân (double) thành phân số tối giản [tử, mẫu]
+import java.util.*;
+import ptit.dblab.judge.network.server.soap.*;
+
+public class BaiLam {
+    public static void main(String[] args) throws Exception {
+        DataService service = new DataService();
+        SoapDataService port = service.getSoapDataServicePort();
+        String studentCode = "B23DCCN475", qCode = "eDeIq4xp";
+        
+        // --- ĐOẠN CODE XỬ LÝ CỦA TỪNG CÂU Ở DƯỚI ĐÂY ---
+	double d = port.getDataDouble(studentCode, qCode);
+	String s = String.valueOf(d);
+	int decPlaces = s.length() - 1 - s.indexOf('.');
+	int denom = (int) Math.round(Math.pow(10, decPlaces));
+	int num = (int) Math.round(d * denom);
+
+	int a = num, b = denom;
+	while (b != 0) { int t = a % b; a = b; b = t; }
+	int gcd = a;
+
+	List<Integer> res = Arrays.asList(num / gcd, denom / gcd);
+	port.submitDataIntArray(studentCode, qCode, res);
+    }
+}
+
+data WS 10 Đếm và liệt kê các ước số của phần nguyên số
+import java.util.*;
+import ptit.dblab.judge.network.server.soap.*;
+
+public class BaiLam {
+    public static void main(String[] args) throws Exception {
+        DataService service = new DataService();
+        SoapDataService port = service.getSoapDataServicePort();
+        String studentCode = "B23DCCN475", qCode = "eDeIq4xp";
+        
+        // --- ĐOẠN CODE XỬ LÝ CỦA TỪNG CÂU Ở DƯỚI ĐÂY ---
+	double d = port.getDataDouble(studentCode, qCode);
+	int n = (int) d;
+	List<Integer> res = new ArrayList<>();
+	for (int i = 1; i <= n; i++) {
+    		if (n % i == 0) res.add(i);
+	}
+	res.add(0, res.size()); // Phần tử đầu tiên là số lượng ước
+	port.submitDataIntArray(studentCode, qCode, res);
+    }
+}
+
+data WS 11 Tìm số lớn nhất ghép được từ mảng số nguyên
+import java.util.*;
+import ptit.dblab.judge.network.server.soap.*;
+
+public class BaiLam {
+    public static void main(String[] args) throws Exception {
+        DataService service = new DataService();
+        SoapDataService port = service.getSoapDataServicePort();
+        String studentCode = "B23DCCN475", qCode = "eDeIq4xp";
+        
+        // --- ĐOẠN CODE XỬ LÝ CỦA TỪNG CÂU Ở DƯỚI ĐÂY ---
+	List<Integer> list = port.getData(studentCode, qCode);
+	List<String> a = new ArrayList<>();
+	for (Integer x : list) a.add(x + "");
+	Collections.sort(a, (o1, o2) -> (o2 + o1).compareTo(o1 + o2));
+	StringBuilder sb = new StringBuilder();
+	for (String x : a) sb.append(x);
+	port.submitDataString(studentCode, qCode, sb.toString());
+    }
+}
+
+char WS 1 Sắp xếp mảng ký tự theo thứ tự từ điển
+import java.util.*;
+import ptit.dblab.judge.network.server.soap.*;
+
+public class BaiLam {
+    public static void main(String[] args) throws Exception {
+        CharacterService_Service service = new CharacterService_Service();
+        CharacterService port = service.getCharacterServicePort();
+        String studentCode = "B23DCCN475", qCode = "eDeIq4xp";
+        
+        // --- ĐOẠN CODE XỬ LÝ CỦA TỪNG CÂU Ở DƯỚI ĐÂY ---
+	List<Integer> list = port.requestCharacter(studentCode, qCode); // Hoặc List<Character> tùy WSDL
+	Collections.sort(list);
+	port.submitCharacterCharArray(studentCode, qCode, list);
+    }
+}
+
+char WS 2 Xoay vòng mảng ký tự sang phải
+import java.util.*;
+import ptit.dblab.judge.network.server.soap.*;
+
+public class BaiLam {
+    public static void main(String[] args) throws Exception {
+        CharacterService_Service service = new CharacterService_Service();
+        CharacterService port = service.getCharacterServicePort();
+        String studentCode = "B23DCCN475", qCode = "eDeIq4xp";
+        
+        // --- ĐOẠN CODE XỬ LÝ CỦA TỪNG CÂU Ở DƯỚI ĐÂY ---
+	List<Integer> list = port.requestCharacter(studentCode, qCode);
+	Collections.rotate(list, 1); // Xoay phải (hoặc theo số bước đề yêu cầu)
+	port.submitCharacterCharArray(studentCode, qCode, list);
+    }
+}
+
+char WS 3 Chuyển đổi chuỗi sang PascalCase, camelCase, snake_case
+import java.util.*;
+import ptit.dblab.judge.network.server.soap.*;
+
+public class BaiLam {
+    public static void main(String[] args) throws Exception {
+        CharacterService_Service service = new CharacterService_Service();
+        CharacterService port = service.getCharacterServicePort();
+        String studentCode = "B23DCCN475", qCode = "eDeIq4xp";
+        
+        // --- ĐOẠN CODE XỬ LÝ CỦA TỪNG CÂU Ở DƯỚI ĐÂY ---
+	String s = port.requestString(studentCode, qCode);
+	String[] words = s.trim().split("[\\s_]+");
+	StringBuilder pascal = new StringBuilder();
+	StringBuilder camel = new StringBuilder();
+	List<String> snakeList = new ArrayList<>();
+
+	for (int i = 0; i < words.length; i++) {
+    		if (words[i].isEmpty()) continue;
+    		String wLow = words[i].toLowerCase();
+    		String wCap = wLow.substring(0, 1).toUpperCase() + wLow.substring(1);
+    		pascal.append(wCap);
+    		camel.append(i == 0 ? wLow : wCap);
+    		snakeList.add(wLow);
+	}
+	List<String> res = Arrays.asList(pascal.toString(), camel.toString(), String.join("_", snakeList));
+	port.submitCharacterStringArray(studentCode, qCode, res);
+    }
+}
+ 
+char WS 4 Lọc giữ lại chữ cái và đảo ngược chuỗi
+import java.util.*;
+import ptit.dblab.judge.network.server.soap.*;
+
+public class BaiLam {
+    public static void main(String[] args) throws Exception {
+        CharacterService_Service service = new CharacterService_Service();
+        CharacterService port = service.getCharacterServicePort();
+        String studentCode = "B23DCCN475", qCode = "eDeIq4xp";
+        
+        // --- ĐOẠN CODE XỬ LÝ CỦA TỪNG CÂU Ở DƯỚI ĐÂY ---
+	String s = port.requestString(studentCode, qCode);
+	StringBuilder sb = new StringBuilder();
+	for (char c : s.toCharArray()) {
+    		if (Character.isLetter(c)) sb.append(c);
+	}
+	String res = sb.reverse().toString();
+	port.submitCharacterString(studentCode, qCode, res);
+    }
+}
+
+char WS 5 Tìm từ dài nhất và ngắn nhất trong chuỗi
+import java.util.*;
+import ptit.dblab.judge.network.server.soap.*;
+
+public class BaiLam {
+    public static void main(String[] args) throws Exception {
+        CharacterService_Service service = new CharacterService_Service();
+        CharacterService port = service.getCharacterServicePort();
+        String studentCode = "B23DCCN475", qCode = "eDeIq4xp";
+        
+        // --- ĐOẠN CODE XỬ LÝ CỦA TỪNG CÂU Ở DƯỚI ĐÂY ---
+	String s = port.requestString(studentCode, qCode);
+	String[] words = s.trim().split("\\s+");
+	String maxW = words[0], minW = words[0];
+	for (String w : words) {
+    		if (w.length() > maxW.length()) maxW = w;
+    		if (w.length() < minW.length()) minW = w;
+	}
+	port.submitCharacterString(studentCode, qCode, maxW + "; " + minW);
+    }
+}
+
+char WS 6 Tìm từ dài nhất và ngắn nhất trong mảng chuỗi
+import java.util.*;
+import ptit.dblab.judge.network.server.soap.*;
+
+public class BaiLam {
+    public static void main(String[] args) throws Exception {
+        CharacterService_Service service = new CharacterService_Service();
+        CharacterService port = service.getCharacterServicePort();
+        String studentCode = "B23DCCN475", qCode = "eDeIq4xp";
+        
+        // --- ĐOẠN CODE XỬ LÝ CỦA TỪNG CÂU Ở DƯỚI ĐÂY ---
+	List<String> list = port.requestStringArray(studentCode, qCode);
+	String maxW = list.get(0), minW = list.get(0);
+	for (String w : list) {
+    		if (w.length() > maxW.length()) maxW = w;
+    		if (w.length() < minW.length()) minW = w;
+	}
+	port.submitCharacterString(studentCode, qCode, maxW + ";" + minW);
+    }
+}
+
+char WS 7 Sắp xếp mảng chuỗi theo độ dài tăng dần
+import java.util.*;
+import ptit.dblab.judge.network.server.soap.*;
+
+public class BaiLam {
+    public static void main(String[] args) throws Exception {
+        CharacterService_Service service = new CharacterService_Service();
+        CharacterService port = service.getCharacterServicePort();
+        String studentCode = "B23DCCN475", qCode = "eDeIq4xp";
+        
+        // --- ĐOẠN CODE XỬ LÝ CỦA TỪNG CÂU Ở DƯỚI ĐÂY ---
+	List<String> list = port.requestStringArray(studentCode, qCode);
+	Collections.sort(list, (o1, o2) -> Integer.compare(o1.length(), o2.length()));
+	port.submitCharacterStringArray(studentCode, qCode, list);
+    }
+}
+
+char WS 8 Phân nhóm các từ có cùng số lượng nguyên âm và sắp xếp từ điển trong nhóm
+import java.util.*;
+import ptit.dblab.judge.network.server.soap.*;
+
+public class BaiLam {
+    public static void main(String[] args) throws Exception {
+        CharacterService_Service service = new CharacterService_Service();
+        CharacterService port = service.getCharacterServicePort();
+        String studentCode = "B23DCCN475", qCode = "eDeIq4xp";
+        
+        // --- ĐOẠN CODE XỬ LÝ CỦA TỪNG CÂU Ở DƯỚI ĐÂY ---
+	List<String> list = port.requestStringArray(studentCode, qCode);
+	Map<Integer, List<String>> map = new TreeMap<>();
+	for (String w : list) {
+    		int v = 0;
+    		for (char c : w.toLowerCase().toCharArray()) {
+        		if ("aeiou".indexOf(c) != -1) v++;
+    		}
+    		map.computeIfAbsent(v, k -> new ArrayList<>()).add(w);
+	}
+	List<String> res = new ArrayList<>();
+	for (List<String> group : map.values()) {
+    		Collections.sort(group);
+    		res.add(String.join(", ", group));
+	}
+	port.submitCharacterStringArray(studentCode, qCode, res);
+    }
+}
+
+char WS 9 Sắp xếp mảng chuỗi theo số lượng nguyên âm tăng dần (giữ nguyên thứ tự ban đầu nếu bằng nhau)
+import java.util.*;
+import ptit.dblab.judge.network.server.soap.*;
+
+public class BaiLam {
+    public static void main(String[] args) throws Exception {
+        CharacterService_Service service = new CharacterService_Service();
+        CharacterService port = service.getCharacterServicePort();
+        String studentCode = "B23DCCN475", qCode = "eDeIq4xp";
+        
+        // --- ĐOẠN CODE XỬ LÝ CỦA TỪNG CÂU Ở DƯỚI ĐÂY ---
+	List<String> list = port.requestStringArray(studentCode, qCode);
+	Collections.sort(list, (o1, o2) -> {
+    		int v1 = 0, v2 = 0;
+    		for (char c : o1.toLowerCase().toCharArray()) if ("aeiou".indexOf(c) != -1) v1++;
+    		for (char c : o2.toLowerCase().toCharArray()) if ("aeiou".indexOf(c) != -1) v2++;
+    	return Integer.compare(v1, v2); // Collections.sort là stable sort nên tự giữ nguyên thứ tự gốc
+	});
+	port.submitCharacterStringArray(studentCode, qCode, list);
+    }
+}
+
+object WS 1 Tính finalPrice cho ProductY
+import java.util.*;
+import javax.xml.datatype.XMLGregorianCalendar;
+import ptit.dblab.judge.network.server.soap.*;
+
+public class BaiLam {
+    public static void main(String[] args) throws Exception {
+        ObjectService_Service service = new ObjectService_Service();
+        ObjectService port = service.getObjectServicePort();
+        String studentCode = "B23DCCN475", qCode = "eDeIq4xp";
+        
+        // --- ĐOẠN CODE XỬ LÝ CỦA TỪNG CÂU Ở DƯỚI ĐÂY ---
+	ProductY p = (ProductY) port.requestObject(studentCode, qCode);
+	float finalPrice = p.getPrice() * (1 + p.getTaxRate() / 100.0f) * (1 - p.getDiscount() / 100.0f);
+	p.setFinalPrice(finalPrice);
+	port.submitObject(studentCode, qCode, p);
+    }
+}
+
+object WS 2 Tính số ngày làm việc (workingDays) không tính Thứ Bảy, Chủ Nhật của Employee
+import java.util.*;
+import javax.xml.datatype.XMLGregorianCalendar;
+import ptit.dblab.judge.network.server.soap.*;
+
+public class BaiLam {
+    public static void main(String[] args) throws Exception {
+        ObjectService_Service service = new ObjectService_Service();
+        ObjectService port = service.getObjectServicePort();
+        String studentCode = "B23DCCN475", qCode = "eDeIq4xp";
+        
+        // --- ĐOẠN CODE XỬ LÝ CỦA TỪNG CÂU Ở DƯỚI ĐÂY ---
+	Employee e = (Employee) port.requestObject(studentCode, qCode);
+	Calendar start = e.getStartDate().toGregorianCalendar();
+	Calendar end = e.getEndDate().toGregorianCalendar();
+	int workingDays = 0;
+	while (!start.after(end)) {
+    		int dayOfWeek = start.get(Calendar.DAY_OF_WEEK);
+    		if (dayOfWeek != Calendar.SATURDAY && dayOfWeek != Calendar.SUNDAY) {
+        		workingDays++;
+    		}
+    	start.add(Calendar.DAY_OF_MONTH, 1);
+	}
+	e.setWorkingDays(workingDays);
+	port.submitObject(studentCode, qCode, e);
+    }
+}
+
+object WS 3 Sắp xếp danh sách EmployeeY theo thâm niên từ cao đến thấp (startDate tăng dần
+import java.util.*;
+import javax.xml.datatype.XMLGregorianCalendar;
+import ptit.dblab.judge.network.server.soap.*;
+
+public class BaiLam {
+    public static void main(String[] args) throws Exception {
+        ObjectService_Service service = new ObjectService_Service();
+        ObjectService port = service.getObjectServicePort();
+        String studentCode = "B23DCCN475", qCode = "eDeIq4xp";
+        
+        // --- ĐOẠN CODE XỬ LÝ CỦA TỪNG CÂU Ở DƯỚI ĐÂY ---
+	List<EmployeeY> list = port.requestListEmployeeY(studentCode, qCode);
+	Collections.sort(list, (o1, o2) -> 
+    		o1.getStartDate().toGregorianCalendar().compareTo(o2.getStartDate().toGregorianCalendar())
+	);
+	port.submitListEmployeeY(studentCode, qCode, list);
+    }
+}
+
+object WS 4 Phân nhóm sinh viên Student theo mức điểm A, B, C, D
+import java.util.*;
+import javax.xml.datatype.XMLGregorianCalendar;
+import ptit.dblab.judge.network.server.soap.*;
+
+public class BaiLam {
+    public static void main(String[] args) throws Exception {
+        ObjectService_Service service = new ObjectService_Service();
+        ObjectService port = service.getObjectServicePort();
+        String studentCode = "B23DCCN475", qCode = "eDeIq4xp";
+        
+        // --- ĐOẠN CODE XỬ LÝ CỦA TỪNG CÂU Ở DƯỚI ĐÂY ---
+	List<Student> list = port.requestListStudent(studentCode, qCode);
+	List<Student> res = new ArrayList<>();
+	// Tùy theo WSDL yêu cầu lọc hay gán rank hoặc gửi List<String>:
+	for (Student s : list) {
+    		float sc = s.getScore();
+    		String grade = sc >= 8.0f ? "A" : (sc >= 6.5f ? "B" : (sc >= 5.0f ? "C" : "D"));
+    	// Nếu chỉ giữ lại nhóm A và D hoặc cập nhật thuộc tính tùy cấu trúc lớp Student trên WSDL
+	}
+    }
+}
+
+object WS 5 Lọc hóa đơn Order của khách hàng có tổng giá trị đơn hàng cao nhất
+import java.util.*;
+import javax.xml.datatype.XMLGregorianCalendar;
+import ptit.dblab.judge.network.server.soap.*;
+
+public class BaiLam {
+    public static void main(String[] args) throws Exception {
+        ObjectService_Service service = new ObjectService_Service();
+        ObjectService port = service.getObjectServicePort();
+        String studentCode = "B23DCCN475", qCode = "eDeIq4xp";
+        
+        // --- ĐOẠN CODE XỬ LÝ CỦA TỪNG CÂU Ở DƯỚI ĐÂY ---
+	List<Order> list = port.requestListOrder(studentCode, qCode);
+	Map<String, Float> sumMap = new HashMap<>();
+	for (Order o : list) {
+    		sumMap.put(o.getCustomerId(), sumMap.getOrDefault(o.getCustomerId(), 0f) + o.getAmount());
+	}
+	String maxCustId = "";
+	float maxTotal = -1;
+	for (Map.Entry<String, Float> e : sumMap.entrySet()) {
+    		if (e.getValue() > maxTotal) {
+        		maxTotal = e.getValue();
+        		maxCustId = e.getKey();
+    		}
+	}
+	List<Order> res = new ArrayList<>();
+	for (Order o : list) {
+    		if (o.getCustomerId().equals(maxCustId)) res.add(o);
+	}
+	port.submitListOrder(studentCode, qCode, res);
+    }
+}
+
+object WS 6 Lọc đơn hàng OrderY ("pending" hoặc "processing" và trong vòng 30 ngày qua)
+import java.util.*;
+import javax.xml.datatype.XMLGregorianCalendar;
+import ptit.dblab.judge.network.server.soap.*;
+
+public class BaiLam {
+    public static void main(String[] args) throws Exception {
+        ObjectService_Service service = new ObjectService_Service();
+        ObjectService port = service.getObjectServicePort();
+        String studentCode = "B23DCCN475", qCode = "eDeIq4xp";
+        
+        // --- ĐOẠN CODE XỬ LÝ CỦA TỪNG CÂU Ở DƯỚI ĐÂY ---
+	List<OrderY> list = port.requestListOrderY(studentCode, qCode);
+	List<OrderY> res = new ArrayList<>();
+	long now = System.currentTimeMillis();
+	long thirtyDaysMs = 30L * 24 * 60 * 60 * 1000;
+
+	for (OrderY o : list) {
+    		String st = o.getStatus();
+    		long orderTime = o.getOrderDate().toGregorianCalendar().getTimeInMillis();
+    		if ((st.equals("pending") || st.equals("processing")) && (now - orderTime <= thirtyDaysMs) && (orderTime <= now)) {
+        		res.add(o);
+    		}
+	}
+	port.submitListOrderY(studentCode, qCode, res);
+    }
+}
+
+object WS 7 Lọc sinh viên StudentY có điểm cao nhất theo từng môn học (subject)
+import java.util.*;
+import javax.xml.datatype.XMLGregorianCalendar;
+import ptit.dblab.judge.network.server.soap.*;
+
+public class BaiLam {
+    public static void main(String[] args) throws Exception {
+        ObjectService_Service service = new ObjectService_Service();
+        ObjectService port = service.getObjectServicePort();
+        String studentCode = "B23DCCN475", qCode = "eDeIq4xp";
+        
+        // --- ĐOẠN CODE XỬ LÝ CỦA TỪNG CÂU Ở DƯỚI ĐÂY ---
+	List<StudentY> list = port.requestListStudentY(studentCode, qCode);
+	Map<String, Float> maxScoreBySub = new HashMap<>();
+	for (StudentY s : list) {
+    		String sub = s.getSubject();
+    		maxScoreBySub.put(sub, Math.max(maxScoreBySub.getOrDefault(sub, -1f), s.getScore()));
+	}
+	List<StudentY> res = new ArrayList<>();
+	Set<String> addedSub = new HashSet<>();
+	for (StudentY s : list) {
+    		if (s.getScore() == maxScoreBySub.get(s.getSubject()) && !addedSub.contains(s.getSubject())) {
+        		res.add(s);
+        		addedSub.add(s.getSubject());
+    		}
+	}
+	port.submitListStudentY(studentCode, qCode, res);
+    }
+}
+
+object WS 8 Lọc dự án Project (completionPercentage >= 80 và hạn dueDate trong 15 ngày tới)
+import java.util.*;
+import javax.xml.datatype.XMLGregorianCalendar;
+import ptit.dblab.judge.network.server.soap.*;
+
+public class BaiLam {
+    public static void main(String[] args) throws Exception {
+        ObjectService_Service service = new ObjectService_Service();
+        ObjectService port = service.getObjectServicePort();
+        String studentCode = "B23DCCN475", qCode = "eDeIq4xp";
+        
+        // --- ĐOẠN CODE XỬ LÝ CỦA TỪNG CÂU Ở DƯỚI ĐÂY ---
+	List<Project> list = port.requestListProject(studentCode, qCode);
+	List<Project> res = new ArrayList<>();
+	long now = System.currentTimeMillis();
+	long fifteenDaysMs = 15L * 24 * 60 * 60 * 1000;
+
+	for (Project p : list) {
+    		long due = p.getDueDate().toGregorianCalendar().getTimeInMillis();
+    		if (p.getCompletionPercentage() >= 80.0f && due >= now && (due - now <= fifteenDaysMs)) {
+        		res.add(p);
+    		}
+	}
+	port.submitListProject(studentCode, qCode, res);
+    }
+}
+
+object WS 9 Lọc khách hàng tiềm năng Customer (totalSpent > 5000 và purchaseCount >= 5)
+import java.util.*;
+import javax.xml.datatype.XMLGregorianCalendar;
+import ptit.dblab.judge.network.server.soap.*;
+
+public class BaiLam {
+    public static void main(String[] args) throws Exception {
+        ObjectService_Service service = new ObjectService_Service();
+        ObjectService port = service.getObjectServicePort();
+        String studentCode = "B23DCCN475", qCode = "eDeIq4xp";
+        
+        // --- ĐOẠN CODE XỬ LÝ CỦA TỪNG CÂU Ở DƯỚI ĐÂY ---
+	List<Customer> list = port.requestListCustomer(studentCode, qCode);
+	List<Customer> res = new ArrayList<>();
+	for (Customer c : list) {
+    		if (c.getTotalSpent() > 5000.0f && c.getPurchaseCount() >= 5) {
+        		res.add(c);
+    		}
+	}
+	port.submitListCustomer(studentCode, qCode, res);
+    }
+}
+
+object WS 10 Lọc khách hàng CustomerY không có giao dịch trong 6 tháng qua
+import java.util.*;
+import javax.xml.datatype.XMLGregorianCalendar;
+import ptit.dblab.judge.network.server.soap.*;
+
+public class BaiLam {
+    public static void main(String[] args) throws Exception {
+        ObjectService_Service service = new ObjectService_Service();
+        ObjectService port = service.getObjectServicePort();
+        String studentCode = "B23DCCN475", qCode = "eDeIq4xp";
+ 
+        // --- ĐOẠN CODE XỬ LÝ CỦA TỪNG CÂU Ở DƯỚI ĐÂY ---
+	List<CustomerY> list = port.requestListCustomerY(studentCode, qCode);
+	List<CustomerY> res = new ArrayList<>();
+	Calendar sixMonthsAgo = Calendar.getInstance();
+	sixMonthsAgo.add(Calendar.MONTH, -6);
+
+	for (CustomerY c : list) {
+    		Calendar lastTrans = c.getLastTransactionDate().toGregorianCalendar();
+    		if (lastTrans.before(sixMonthsAgo)) {
+        		res.add(c);
+    		}
+	}
+	port.submitListCustomerY(studentCode, qCode, res);
+    }
+}
+
